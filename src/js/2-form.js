@@ -1,8 +1,7 @@
-
 let formData = {
     email: "", 
     message: ""
-}
+};
 
 const form = document.querySelector('.feedback-form');
 const labels = document.querySelectorAll('.feedback-form label');
@@ -11,7 +10,7 @@ const messageTextArea = document.querySelector('textarea[name="message"]');
 const submitButton = document.querySelector('button');
 
 labels.forEach(label => {
-    label.classList.add('form-label')
+    label.classList.add('form-label');
 });
 emailInput.classList.add('form-input');
 messageTextArea.classList.add('form-text-area');
@@ -34,6 +33,8 @@ function fillFromLocalStorage() {
     const savedData = localStorage.getItem('feedback-form-state');
     if (savedData) {
         const parsedData = JSON.parse(savedData);
+        formData.email = parsedData.email; 
+        formData.message = parsedData.message;
         form.elements.email.value = parsedData.email;
         form.elements.message.value = parsedData.message;
     }
@@ -42,7 +43,7 @@ function fillFromLocalStorage() {
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    if (formData.email === ""|| formData.message === "") {
+    if (formData.email === "" || formData.message === "") {
         alert('Fill please all fields');
         return;
     }
@@ -50,7 +51,8 @@ form.addEventListener('submit', (event) => {
     console.log(formData);
 
     localStorage.removeItem('feedback-form-state');
+    addToLocalStorage();
     form.reset();
-    formData.email = "";
+    formData.email = ""; 
     formData.message = "";
 });
